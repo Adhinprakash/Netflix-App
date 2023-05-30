@@ -32,7 +32,7 @@ class ScreenHome extends StatelessWidget {
           children: [
             ListView(
               children:  [
-                BackgroundCard(),
+              const  BackgroundCard(),
                MainTitleAndCard(title: "Released in the past year", categoryList:Functions.trendingNow),
                 MainTitleAndCard(
                   title: "Trending now", categoryList:Functions.nowplaying ,

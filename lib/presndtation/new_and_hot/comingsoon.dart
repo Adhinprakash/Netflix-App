@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:netflixapp/core/constrains.dart';
 import 'package:netflixapp/domain/movies/movies.dart';
 import 'package:netflixapp/presndtation/mainpage/widgets/custome_button.dart';
@@ -13,7 +14,10 @@ final Movies movies;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
+final String apiDate = movies.releaseDate!;
+    DateTime date = DateTime.parse(apiDate);
+    final String releaseDate = DateFormat.MMMd().format(date);
+    final String releaseDay = DateFormat.EEEE().format(date);
     return Row(
       children:  [
         SizedBox(
@@ -22,7 +26,7 @@ final Movies movies;
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(movies.releaseDate!,
+              Text(releaseDate,
                   style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -41,22 +45,22 @@ final Movies movies;
              VideoWidget(images: movies.backdropPath!),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children:  [
                    SizedBox(
                     width: 240,
                     height: 40,
                     child: Text(
                       movies.title!,
-                      style: TextStyle(
+                      style:const TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
                         letterSpacing: -3,
                       ),
                     ),
                   ),
-                  Row(
+               const   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children:  [
                       CustomButtonWidget(
                         icon: Icons.notifications_outlined,
                         title: 'Remind me',
@@ -75,7 +79,7 @@ final Movies movies;
                 ],
               ),
               kheight,
-               Text("Coming on ${movies.releaseDate}"),
+               Text("Coming on $releaseDay"),
               kheight,
              SizedBox(
                 height: 20,

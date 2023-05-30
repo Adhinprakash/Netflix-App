@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoListItems extends StatefulWidget {
-  const VideoListItems({super.key, required this.index});
+class WidgetVideoList extends StatefulWidget {
+  const WidgetVideoList({super.key, required this.index});
   final int index;
 
   @override
-  State<VideoListItems> createState() => _VideoListItemsState();
+  State<WidgetVideoList> createState() => _WidgetVideoListState();
 }
 
-class _VideoListItemsState extends State<VideoListItems> {
-  List<String> videos = [
-        "assets/instagram_1664984813655.mp4"
-        "assets/instagram__1656043918923.mp4"
-        "assets/Tommy_Shelby_-_My_hand_has_blood_-_Peaky_Blinders(1080p).mp4"
-        "assets/ضيفني_مابتندم.mp4"
-        "assets/what_sense_is_our_society_male-dominated_-_Jordan_Peterson(720p).mp4"
+class _WidgetVideoListState extends State<WidgetVideoList> {
+  List<String> video = [
+   
+    
+    'assets/instagram__1656043918923.mp4',
+    'assets/instagram_1664984813655.mp4',
+    'assets/Tommy_Shelby_-_My_hand_has_blood_-_Peaky_Blinders(1080p).mp4',
+    'assets/what_sense_is_our_society_male-dominated_-_Jordan_Peterson(720p).mp4',
+   // 'assets/ضيفني_مابتندم.mp4',
+    
   ];
-
 
   late VideoPlayerController _videoController;
   bool _isVideoPlaying = true;
@@ -25,94 +27,99 @@ class _VideoListItemsState extends State<VideoListItems> {
   @override
   void initState() {
     super.initState();
-    _videoController = VideoPlayerController.asset(videos[widget.index])
+    _videoController = VideoPlayerController.asset(video[widget.index])
       ..initialize().then((_) {
         setState(() {});
-        
       });
-      _videoController.play();
-  }
-
-@override
-  void dispose() {
-     _videoController.dispose();
-    super.dispose();
-   
-
+    _videoController.play();
   }
 
   @override
-  Widget build(BuildContext) {
+  void dispose() {
+    // TODO: implement dispose
+    _videoController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: [
-        AspectRatio(
-          aspectRatio: _videoController.value.aspectRatio,
-
-          child: VideoPlayer(_videoController),
-        ),
+        VideoPlayer(_videoController),
         Align(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.bottomLeft,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // left side
                 CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 27,
-                  child: IconButton(
-                      onPressed: () {
-
-                             setState(() {
-                        if (_isVideoPlaying) {
-                          _videoController.pause();
-                          _isVideoPlaying = false;
-                        } else {
-                          _videoController.play();
-                          _isVideoPlaying = true;
-                        }
-                      });
-                      },
-                      icon: Icon(
-                        _isVideoPlaying? Icons.pause :Icons.play_arrow,
+                    radius: 25,
+                    backgroundColor: Colors.black.withOpacity(0.5),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.volume_off,
                         color: Colors.white,
-                      )),
-                ),
-
-                // rightside
-                const Column(
+                        size: 28,
+                      ),
+                    )),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                  children:   [
+                 const   Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: CircleAvatar(
-                        radius: 30,
+                        radius: 25,
                         backgroundImage: NetworkImage(
-                            "https://www.themoviedb.org/t/p/w220_and_h330_face/5ik4ATKmNtmJU6AYD0bLm56BCVM.jpg"),
+                         "https://www.themoviedb.org/t/p/w220_and_h330_face/qcNDxDzd5OW9wE3c8nWxCBQoBrM.jpg"
+                        ),
                       ),
                     ),
-                    VideoActionWidget(icon: Icons.emoji_emotions, title: "LOL"),
-                    VideoActionWidget(icon: Icons.add, title: "My List"),
-                    VideoActionWidget(icon: Icons.share, title: "Share"),
-                    VideoActionWidget(icon: Icons.play_arrow, title: "Play")
+                   const  VideoActionsWidget(
+                        icon: Icons.emoji_emotions, title: 'LOL'),
+                    const VideoActionsWidget(icon: Icons.add, title: 'My List'),
+                 const    VideoActionsWidget(icon: Icons.share, title: 'Share'),
+                    CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.transparent,
+                        child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              if (_isVideoPlaying) {
+                                _videoController.pause();
+
+
+_isVideoPlaying = false;
+                              } else {
+                                _videoController.play();
+                                _isVideoPlaying = true;
+                              }
+                            });
+                          },
+                          icon: Icon(
+                            _isVideoPlaying ? Icons.pause : Icons.play_arrow,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                        )),
                   ],
                 )
               ],
             ),
           ),
-        ),
+        )
       ],
     );
   }
 }
 
-class VideoActionWidget extends StatelessWidget {
-  const VideoActionWidget({super.key, required this.icon, required this.title});
+class VideoActionsWidget extends StatelessWidget {
+  const VideoActionsWidget(
+      {super.key, required this.icon, required this.title});
   final IconData icon;
   final String title;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -122,16 +129,19 @@ class VideoActionWidget extends StatelessWidget {
           Icon(
             icon,
             color: Colors.white,
-            size: 30,
+            size: 40,
           ),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 16,
-            ),
-          ),
+            style: TextStyle(fontSize: 12),
+          )
         ],
       ),
     );
   }
 }
+
+
+
+
+

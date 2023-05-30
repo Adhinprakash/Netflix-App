@@ -34,6 +34,7 @@ dependencies:
     sdk: flutter
   google_fonts: ^4.0.4
   http: ^1.0.0
+  intl: ^0.18.1
   json_annotation: ^4.8.1
   json_serializable: ^6.7.0
   video_player: ^2.6.1
@@ -54,11 +55,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/instagram__1656043918923.mp4
-    - assets/instagram_1664984813655.mp4
-    - assets/Tommy_Shelby_-_My_hand_has_blood_-_Peaky_Blinders(1080p).mp4
-    - assets/what_sense_is_our_society_male-dominated_-_Jordan_Peterson(720p).mp4
-    - assets/ضيفني_مابتندم.mp4 
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:netflixapp/domain/movies/movies.dart';
 import 'package:netflixapp/domain/pages/pages.dart';
@@ -8,7 +9,7 @@ static List<Movies>trendingNow=[];
 static List<Movies>nowplaying=[];
 static List<Movies>comingsoon=[];
 static List<Movies>toprated=[];
-static List<Movies>discover=[];
+static List<Movies>discover=[]; 
 
 
 
@@ -98,6 +99,10 @@ print(toprated);
   print(e);
   }
 }
+
+
+
+
 
 
 
